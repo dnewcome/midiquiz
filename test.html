@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+	<head>
+		<script>
+			navigator.requestMIDIAccess().then(function(res){
+				console.log(res.inputs());
+				inputs = res.inputs();
+				inputs[2].onmidimessage = function(note){
+					console.log(note.data);
+				};
+			});
+			/*
+			inputs[2].onmidimessage = function(note){
+				console.log(note.data);}
+			*/
+		</script>
+	</head>
+	<body>
+		<h1>Chord Quiz</h1>
+		<p>Play CMaj</p>
+	</body>
+</html>
