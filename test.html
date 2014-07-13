@@ -20,9 +20,29 @@
 			}
 		</style>
 		<script>
+			var inputs;
+
+			function addDevices() {
+				var i,
+					select = document.getElementById('selDevices'),
+					option;
+
+				for(i = 0; i < inputs.length; i++) {
+					option = document.createElement('option');				
+					option.text = inputs[i].name;
+					select.add(option);	
+				}
+			}
+			function init() {
+				document.getElementById('selDevices').onchange = function() {
+					console.log('changed');
+				}
+			}
+
 			navigator.requestMIDIAccess().then(function(res){
 				console.log(res.inputs());
 				inputs = res.inputs();
+				addDevices();
 				inputs[2].onmidimessage = function(note){
 					// console.log(note.data);
 					console.log(numberToNote(note.data[1]));
@@ -73,9 +93,9 @@
 			}
 		</script>
 	</head>
-	<body>
+	<body onload="init();">
 		<h1>Chord Quiz</h1>
-		<p>Play CMaj</p>
+		<select id="selDevices"></select>
 		<div id="C" class="key">
 			<div id="Csharp" class="key black"></div>
 		</div>
