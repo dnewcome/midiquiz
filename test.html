@@ -30,27 +30,34 @@
 				for(i = 0; i < inputs.length; i++) {
 					option = document.createElement('option');				
 					option.text = inputs[i].name;
+					option.value = i; 
 					select.add(option);	
 				}
 			}
 			function init() {
-				document.getElementById('selDevices').onchange = function() {
+				document.getElementById('selDevices').onchange = function(e) {
 					console.log('changed');
+					console.log(this.value);
+
+					// remove any previously attached handlers
+					inputs.forEach(function(item) {
+						console.log(item);
+						item.onmidimessage = null;
+					});
+
+					inputs[parseInt(this.value, 10)].onmidimessage = handleMidiMessage; 
 				}
 			}
+			function handleMidiMessage(note) {
+				console.log(numberToNote(note.data[1]));
+				var key = document.getElementById(numberToNote(note.data[1]));
+				key.classList.toggle('pressed');
+			};
 
 			navigator.requestMIDIAccess().then(function(res){
 				console.log(res.inputs());
 				inputs = res.inputs();
 				addDevices();
-				inputs[2].onmidimessage = function(note){
-					// console.log(note.data);
-					console.log(numberToNote(note.data[1]));
-					// if(note.data[1] === 60) {
-						var key = document.getElementById(numberToNote(note.data[1]));
-						key.classList.toggle('pressed');
-					// }
-				};
 			});
 			function numberToNote(num) {
 				var note = num % 12;
@@ -95,7 +102,10 @@
 	</head>
 	<body onload="init();">
 		<h1>Midi Quiz</h1>
-		<select id="selDevices"></select>
+		<label for="selDevices">Select an input device:</label>
+		<select id="selDevices">
+			<option value="-1">none selected</option>
+		</select>
 		<br>
 		<div id="C" class="key">
 			<div id="Csharp" class="key black"></div>
