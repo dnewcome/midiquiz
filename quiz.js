@@ -1,4 +1,6 @@
-var inputs;
+var inputs,
+	notes = {},
+	debug = true;
 
 /**
  * initialize app - detect MIDI devices and attach event handlers
@@ -8,6 +10,10 @@ function init() {
 		console.log(res.inputs());
 		inputs = res.inputs();
 		addDevices();
+
+		if(debug === true) {
+			inputs[3].onmidimessage = handleMidiMessage; 
+		}
 	});
 
 	document.getElementById('selDevices').onchange = function(e) {
@@ -22,6 +28,22 @@ function init() {
 
 		inputs[parseInt(this.value, 10)].onmidimessage = handleMidiMessage; 
 	}
+}
+
+function printNotes() {
+	var ret = [];
+	for(note in notes) {
+		if(notes[note]) {
+			ret.push(note);
+		}	
+	}
+	return ret;
+}
+
+function displayNotes(notes) {
+	var el = document.getElementById('notes-played');
+	console.log('el');
+	el.innerHTML = notes; 
 }
 
 /**
@@ -44,50 +66,73 @@ function addDevices() {
  * event handler for incoming MIDI data stream
  */
 function handleMidiMessage(note) {
+	if(note.data[0] == 254) {
+		return;
+	}
+	console.log(note.data);
+	console.log(convertCommand(note)); 
+	var command = convertCommand(note); 
+	notes[command.noteName + command.octave] = command.command;
+	console.log('notes');
+	console.log(notes);
 	console.log(numberToNote(note.data[1]));
-	var key = document.getElementById(numberToNote(note.data[1]));
+	console.log(printNotes().join(', '));
+	displayNotes(printNotes().join(', '));
+	var key = document.getElementById(numberToNote(note.data[1]).note);
 	key.classList.toggle('pressed');
 };
+
+function convertCommand(command) {
+	return {
+		noteName: numberToNote(command.data[1]).note,
+		octave: numberToNote(command.data[1]).octave,
+		// true for note on, false for note off
+		command: !!command.data[2]
+	};
+}
 
 /**
  * Map MIDI note number to note name
  */
 function numberToNote(num) {
 	var note = num % 12;
+	var octave = Math.floor(num / 12) - 1;
+	var ret = "";
 	if(note === 0) {
-		return "C";
+		ret =  "C";
 	}
 	else if(note === 1) {
-		return "Csharp";
+		ret =  "Csharp";
 	}
 	else if(note === 2) {
-		return "D";
+		ret =  "D";
 	}
 	else if(note === 3) {
-		return "Dsharp";
+		ret =  "Dsharp";
 	}
 	else if(note === 4) {
-		return "E";
+		ret =  "E";
 	}
 	else if(note === 5) {
-		return "F";
+		ret =  "F";
 	}
 	else if(note === 6) {
-		return "Fsharp";
+		ret =  "Fsharp";
 	}
 	else if(note === 7) {
-		return "G";
+		ret =  "G";
 	}
 	else if(note === 8) {
-		return "Gsharp";
+		ret =  "Gsharp";
 	}
 	else if(note === 9) {
-		return "A";
+		ret =  "A";
 	}
 	else if(note === 10) {
-		return "Asharp";
+		ret =  "Asharp";
 	}
 	else if(note === 11) {
-		return "B";
+		ret =  "B";
 	}
+	return {note: ret, octave: octave};
 }
