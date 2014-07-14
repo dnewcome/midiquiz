@@ -30,6 +30,21 @@ function init() {
 	}
 }
 
+/**
+ * Notes is an array of midi note numbers
+ * in a chord
+ */
+function findChord(notes) {
+	var intervals = [],
+		i;
+	notes = notes.sort();
+	for(i=0; i < notes.length - 1; i++) {
+		intervals.push(notes[i-1] - notes[i]);			
+	}
+	
+	return intervals;
+}
+
 function printNotes() {
 	var ret = [];
 	for(note in notes) {
@@ -78,6 +93,7 @@ function handleMidiMessage(note) {
 	console.log(numberToNote(note.data[1]));
 	console.log(printNotes().join(', '));
 	displayNotes(printNotes().join(', '));
+	console.log(findChord(printNotes()));
 	var key = document.getElementById(numberToNote(note.data[1]).note);
 	key.classList.toggle('pressed');
 };
