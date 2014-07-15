@@ -1,6 +1,6 @@
 var inputs,
 	notes = [],
-	debug = true,
+	debug = false,
 	trace = false;
 
 /**
@@ -97,10 +97,20 @@ function handleMidiMessage(note) {
 	notes[note.data[1]] = command.command;
 	console.log(notes);
 	displayNotes(printNotes().join(', '));
-	displayChord(search(findChord(printNotes())));
+	// displayChord(numberToNote(printNotes()[0]).note + search(findChord(printNotes())));
+	if(search(findChord(printNotes()))) {
+		displayChord(numberToNote(printNotes()[0]).note + search(findChord(printNotes())));
+	}
+	else {
+		displayChord('');
+	}
 	var key = document.getElementById(numberToNote(note.data[1]).note);
 	key.classList.toggle('pressed');
 };
+
+function getLowestNote() {
+
+}
 
 function convertCommand(command) {
 	return {
@@ -122,13 +132,13 @@ function numberToNote(num) {
 		ret =  "C";
 	}
 	else if(note === 1) {
-		ret =  "Csharp";
+		ret =  "C#";
 	}
 	else if(note === 2) {
 		ret =  "D";
 	}
 	else if(note === 3) {
-		ret =  "Dsharp";
+		ret =  "D#";
 	}
 	else if(note === 4) {
 		ret =  "E";
@@ -137,19 +147,19 @@ function numberToNote(num) {
 		ret =  "F";
 	}
 	else if(note === 6) {
-		ret =  "Fsharp";
+		ret =  "F#";
 	}
 	else if(note === 7) {
 		ret =  "G";
 	}
 	else if(note === 8) {
-		ret =  "Gsharp";
+		ret =  "G#";
 	}
 	else if(note === 9) {
 		ret =  "A";
 	}
 	else if(note === 10) {
-		ret =  "Asharp";
+		ret =  "A#";
 	}
 	else if(note === 11) {
 		ret =  "B";
