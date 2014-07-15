@@ -1,5 +1,5 @@
 var inputs,
-	notes = {},
+	notes = [],
 	debug = true,
 	trace = false;
 
@@ -35,8 +35,8 @@ function findChord(notes) {
 	var intervals = [0],
 		i;
 	notes = notes.sort();
-	for(i=0; i < notes.length - 1; i++) {
-		intervals.push(notes[i-1] - notes[i]);			
+	for(i=1; i < notes.length; i++) {
+		intervals.push(notes[i] - notes[0]);			
 	}
 	
 	return intervals;
@@ -93,7 +93,8 @@ function handleMidiMessage(note) {
 
 	console.log(convertCommand(note)); 
 	var command = convertCommand(note); 
-	notes[command.noteName + command.octave] = command.command;
+	// notes[command.noteName + command.octave] = {number: note.data[1], playing: command.command};
+	notes[note.data[1]] = command.command;
 	console.log(notes);
 	displayNotes(printNotes().join(', '));
 	displayChord(search(findChord(printNotes())));
