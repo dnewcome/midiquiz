@@ -1,28 +1,25 @@
 var inputs,
 	notes = {},
-	debug = true;
+	debug = true,
+	trace = false;
 
 /**
  * initialize app - detect MIDI devices and attach event handlers
  */
 function init() {
 	navigator.requestMIDIAccess().then(function(res){
-		console.log(res.inputs());
 		inputs = res.inputs();
 		addDevices();
 
+		// auto connect for convenience
 		if(debug === true) {
-			inputs[3].onmidimessage = handleMidiMessage; 
+			inputs[0].onmidimessage = handleMidiMessage; 
 		}
 	});
 
 	document.getElementById('selDevices').onchange = function(e) {
-		console.log('changed');
-		console.log(this.value);
-
 		// remove any previously attached handlers
 		inputs.forEach(function(item) {
-			console.log(item);
 			item.onmidimessage = null;
 		});
 
@@ -35,7 +32,7 @@ function init() {
  * in a chord
  */
 function findChord(notes) {
-	var intervals = [],
+	var intervals = [0],
 		i;
 	notes = notes.sort();
 	for(i=0; i < notes.length - 1; i++) {
@@ -57,8 +54,12 @@ function printNotes() {
 
 function displayNotes(notes) {
 	var el = document.getElementById('notes-played');
-	console.log('el');
 	el.innerHTML = notes; 
+}
+
+function displayChord(chord) {
+	var el = document.getElementById('chord-played');
+	el.innerHTML = chord; 
 }
 
 /**
@@ -81,19 +82,21 @@ function addDevices() {
  * event handler for incoming MIDI data stream
  */
 function handleMidiMessage(note) {
+	// filter active sense messages
 	if(note.data[0] == 254) {
 		return;
 	}
-	console.log(note.data);
+
+	if (trace) {
+		console.log(note.data);
+	}
+
 	console.log(convertCommand(note)); 
 	var command = convertCommand(note); 
 	notes[command.noteName + command.octave] = command.command;
-	console.log('notes');
 	console.log(notes);
-	console.log(numberToNote(note.data[1]));
-	console.log(printNotes().join(', '));
 	displayNotes(printNotes().join(', '));
-	console.log(findChord(printNotes()));
+	displayChord(search(findChord(printNotes())));
 	var key = document.getElementById(numberToNote(note.data[1]).note);
 	key.classList.toggle('pressed');
 };

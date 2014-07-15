@@ -46,6 +46,8 @@ var trie = {
  * root node will be array of one
  */
 function search(intervals) {
+	console.log('intervals');
+	console.log(intervals);
 	var i,
 		j, 
 		nodes = [trie],
