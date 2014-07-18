@@ -8,7 +8,7 @@ var trie = {
 	children: [
 		{
 			value: 2,
-			chord: ' (Interval: Major 2nd)',
+			chord: ' (Interval: Major Second)',
 			children: [
 				{
 					value: 7,
@@ -24,7 +24,7 @@ var trie = {
 				
 				{
 					value: 6,
-					chord: ' diminished fifth (augmented fourth)',
+					chord: 'dim ',
 					children: [
 							{
 								value: 9,
@@ -198,7 +198,7 @@ var trie = {
 		},
 		{
 			value: 4,
-			chord: '(Interval: Major 3rd)',
+			chord: '(Interval: Major Third)',
 			children: [
 				
 				{
@@ -398,7 +398,7 @@ var trie = {
 		},
 		{
 			value: 5,
-			chord: null,
+			chord: ' (Interval: Perfect Fourth)',
 			children: [
 				{
 					value: 7,
@@ -439,8 +439,42 @@ var trie = {
 							  ]
 				}	
 					 ]
+		},
+		{
+		value: 6,
+			chord: ' (Interval: augmented Fourth / diminished Fifth)',
+			children: []
+		},
+		{
+		value: 7,
+			chord: ' (Interval: Perfect Fifth)',
+			children: []
+		},
+		{
+		value: 8,
+			chord: ' (Interval: minor Sixth)',
+			children: []
+		},
+		{
+		value: 9,
+			chord: ' (Interval: Major Sixth)',
+			children: []
+		},
+		{
+		value: 10,
+			chord: ' (Interval: minor Seventh)',
+			children: []
+		},
+		{
+		value: 11,
+			chord: ' (Interval: Major Seventh)',
+			children: []
+		},
+		{
+		value: 12,
+			chord: ' (Interval: Octave)',
+			children: []
 		}
-
 	]
 
 }; 
