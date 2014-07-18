@@ -3,17 +3,17 @@
 	<head>
 		<style>
 			.key {
-				width: 100px;
+				width: 70px;
 				height: 300px;
 				float: left;
 				border: 1px solid black;
 			}
 			.key.black {
-				width: 70px;
+				width: 30px;
 				height: 200px;
 				background-color: black;
 				position: relative;
-				left: 64px;
+				left: 55px;
 			}
 			.pressed, .key.black.pressed {
 				background-color: red;
@@ -34,22 +34,43 @@
 		<span id="notes-played"></span>
 		<h2 id="chord-played"></h2>
 		<br>
-		<div id="C" class="key">
-			<div id="C#" class="key black"></div>
+		<div id="octave0">
+			<div id="C" class="key">
+				<div id="C#" class="key black"></div>
+			</div>
+			<div id="D" class="key">
+				<div id="D#" class="key black"></div>
+			</div>
+			<div id="E" class="key"></div>
+			<div id="F" class="key">
+				<div id="F#" class="key black"></div>
+			</div>
+			<div id="G" class="key">
+				<div id="G#" class="key black"></div>
+			</div>
+			<div id="A" class="key">
+				<div id="A#" class="key black"></div>
+			</div>
+			<div id="B" class="key"></div>
 		</div>
-		<div id="D" class="key">
-			<div id="D#" class="key black"></div>
+		<div id="octave1">
+			<div id="C" class="key">
+				<div id="C#" class="key black"></div>
+			</div>
+			<div id="D" class="key">
+				<div id="D#" class="key black"></div>
+			</div>
+			<div id="E" class="key"></div>
+			<div id="F" class="key">
+				<div id="F#" class="key black"></div>
+			</div>
+			<div id="G" class="key">
+				<div id="G#" class="key black"></div>
+			</div>
+			<div id="A" class="key">
+				<div id="A#" class="key black"></div>
+			</div>
+			<div id="B" class="key"></div>
 		</div>
-		<div id="E" class="key"></div>
-		<div id="F" class="key">
-			<div id="F#" class="key black"></div>
-		</div>
-		<div id="G" class="key">
-			<div id="G#" class="key black"></div>
-		</div>
-		<div id="A" class="key">
-			<div id="A#" class="key black"></div>
-		</div>
-		<div id="B" class="key"></div>
 	</body>
 </html>
