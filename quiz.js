@@ -104,7 +104,11 @@ function handleMidiMessage(note) {
 	else {
 		displayChord('');
 	}
-	var key = document.getElementById(numberToNote(note.data[1]).note);
+	// var key = document.getElementById(numberToNote(note.data[1]).note);
+	var key = document.querySelector(
+		'#octave' + numberToNote(note.data[1]).octave + ' #' +
+		numberToNote(note.data[1]).note
+	);
 	key.classList.toggle('pressed');
 };
 
@@ -136,13 +140,13 @@ function numberToNote(num) {
 		ret =  "C";
 	}
 	else if(note === 1) {
-		ret =  "C#";
+		ret =  "Csharp";
 	}
 	else if(note === 2) {
 		ret =  "D";
 	}
 	else if(note === 3) {
-		ret =  "D#";
+		ret =  "Dsharp";
 	}
 	else if(note === 4) {
 		ret =  "E";
@@ -151,19 +155,19 @@ function numberToNote(num) {
 		ret =  "F";
 	}
 	else if(note === 6) {
-		ret =  "F#";
+		ret =  "Fsharp";
 	}
 	else if(note === 7) {
 		ret =  "G";
 	}
 	else if(note === 8) {
-		ret =  "G#";
+		ret =  "Gsharp";
 	}
 	else if(note === 9) {
 		ret =  "A";
 	}
 	else if(note === 10) {
-		ret =  "A#";
+		ret =  "Asharp";
 	}
 	else if(note === 11) {
 		ret =  "B";
