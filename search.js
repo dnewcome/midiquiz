@@ -13,7 +13,13 @@ var trie = {
 				{
 					value: 7,
 					chord: 'min',
-					children: []
+					children: [
+						{
+							value: 10,
+							chord: 'm7',
+							children: []
+						}
+					]
 				},
 				{
 					value: 6,
@@ -29,7 +35,13 @@ var trie = {
 				{
 					value: 7,
 					chord: 'maj',
-					children: []
+					children: [
+						{
+							value: 11,
+							chord: 'maj7',
+							children: []
+						}
+					]
 				},
 				{
 					value: 8,
