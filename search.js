@@ -15,7 +15,7 @@ var trie = {
 					chord: 'sus2',
 					children: []
 				}	
-					 ]
+			 ]
 		},
 		{
 			value: 3,
@@ -24,7 +24,7 @@ var trie = {
 				
 				{
 					value: 6,
-					chord: ' diminished fifth (augmented fourth)',
+					chord: 'dim',
 					children: [
 							{
 								value: 9,
@@ -77,10 +77,10 @@ var trie = {
 													}
 														  ]
 											}
-												 ]
+										 ]
 									}
 								]
-								}
+							}
 					]
 				},
 				{
@@ -185,7 +185,7 @@ var trie = {
 				
 					{
 					value: 8,
-					chord: 'dim',
+					chord: null,
 					children: [
 						{
 								value: 10,
@@ -444,6 +444,29 @@ var trie = {
 	]
 
 }; 
+
+function invert(intervals) {
+	intervals[0] = intervals[0] + 12;
+	intervals = intervals.map(function(i){return i-intervals[1]});
+	intervals.sort();
+	return intervals;
+}
+
+function searchInversions(intervals) {
+	var i;
+	var chord = search(intervals);	
+	if(chord) {
+		return chord;
+	}
+	for(i = 1; i < intervals.length; i += 1) {
+		intervals = invert(intervals);	
+		chord = search(intervals);	
+		if(chord) {
+			return chord + ' inversion ' + i;
+		}
+	}
+	return chord;
+}
 
 /**
  * Intervals and nodes are both arrays

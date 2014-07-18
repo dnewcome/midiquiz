@@ -98,8 +98,8 @@ function handleMidiMessage(note) {
 	console.log(notes);
 	displayNotes(printNotes().join(', '));
 	// displayChord(numberToNote(printNotes()[0]).note + search(findChord(printNotes())));
-	if(search(findChord(printNotes()))) {
-		displayChord(numberToNote(printNotes()[0]).note + search(findChord(printNotes())));
+	if(searchInversions(findChord(printNotes()))) {
+		displayChord(numberToNote(printNotes()[0]).note + searchInversions(findChord(printNotes())));
 	}
 	else {
 		displayChord('');
