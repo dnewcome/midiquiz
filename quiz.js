@@ -113,11 +113,15 @@ function getLowestNote() {
 }
 
 function convertCommand(command) {
+	var onoff = true;
+	if((0xF0 & command.data[0]) == 128 || command.data[2] == 0) {
+		onoff = false;
+	}
 	return {
 		noteName: numberToNote(command.data[1]).note,
 		octave: numberToNote(command.data[1]).octave,
 		// true for note on, false for note off
-		command: !!command.data[2]
+		command: onoff
 	};
 }
 
