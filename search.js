@@ -481,7 +481,9 @@ var trie = {
 
 function invert(intervals) {
 	intervals[0] = intervals[0] + 12;
-	intervals = intervals.map(function(i){return i-intervals[1]});
+	intervals = intervals.map(function (i) {
+		return i-intervals[1]
+	});
 	intervals.sort();
 	return intervals;
 }
@@ -490,16 +492,16 @@ function searchInversions(intervals) {
 	var i;
 	var chord = search(intervals);	
 	if(chord) {
-		return chord;
+		return {chord: chord, inversion: 0};
 	}
 	for(i = 1; i < intervals.length; i += 1) {
 		intervals = invert(intervals);	
 		chord = search(intervals);	
 		if(chord) {
-			return chord + ' inversion ' + i;
+			return {chord: chord,  inversion: i};
 		}
 	}
-	return chord;
+	return {chord: chord, inversion: 0};
 }
 
 /**

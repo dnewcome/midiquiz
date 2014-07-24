@@ -35,8 +35,7 @@ function init() {
 
 /**
  * Notes is an array of midi note numbers
- * in a chord. We convert this to an array 
- * of intervals to use for searching chord type
+ * in a chord
  */
 function findChord(notes) {
 	var intervals = [0],
@@ -118,7 +117,13 @@ function handleMidiMessage(note) {
 	notes[note.data[1]] = command.command;
 	console.log(notes);
 	displayNotes(printNotes().join(', '));
-		displayChord(numberToNote(printNotes()[0]).note + searchInversions(findChord(printNotes())));
+	var chord = searchInversions(findChord(printNotes())); 
+	if(chord.chord) {
+		displayChord(
+			numberToNote(printNotes()[chord.inversion]).note + 
+			chord.chord + ' ' +
+			chord.inversion
+		);
 	}
 	else {
 		displayChord('');
