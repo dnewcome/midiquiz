@@ -1,6 +1,12 @@
 var inputs,
+
+	/* currently played notes */
 	notes = [],
+
+	/* for convenience setting debug will automatically connect a MIDI device */
 	debug = false,
+
+	/* enable etailed logging */
 	trace = false;
 
 /**
@@ -29,7 +35,8 @@ function init() {
 
 /**
  * Notes is an array of midi note numbers
- * in a chord
+ * in a chord. We convert this to an array 
+ * of intervals to use for searching chord type
  */
 function findChord(notes) {
 	var intervals = [0],
@@ -42,6 +49,13 @@ function findChord(notes) {
 	return intervals;
 }
 
+/**
+ * We keep an array of all notes
+ * that we have played keyed by MIDI note. Note on sets 
+ * value of that array element to true
+ *
+ * Returns array of note numbers we are playing
+ */
 function printNotes() {
 	var ret = [];
 	for(note in notes) {
@@ -52,11 +66,18 @@ function printNotes() {
 	return ret;
 }
 
+/**
+ * This is currently a debug display, showing the 
+ * note numbers of all notes being played
+ */
 function displayNotes(notes) {
 	var el = document.getElementById('notes-played');
 	el.innerHTML = notes; 
 }
 
+/**
+ * This is the main chord name display in the UI
+ */
 function displayChord(chord) {
 	var el = document.getElementById('chord-played');
 	el.innerHTML = chord; 
@@ -97,8 +118,6 @@ function handleMidiMessage(note) {
 	notes[note.data[1]] = command.command;
 	console.log(notes);
 	displayNotes(printNotes().join(', '));
-	// displayChord(numberToNote(printNotes()[0]).note + search(findChord(printNotes())));
-	if(searchInversions(findChord(printNotes()))) {
 		displayChord(numberToNote(printNotes()[0]).note + searchInversions(findChord(printNotes())));
 	}
 	else {
@@ -116,6 +135,11 @@ function getLowestNote() {
 
 }
 
+/**
+ * format incoming midi message into a normalized form.
+ * Different keyboards send note off messages in different
+ * ways.
+ */
 function convertCommand(command) {
 	var onoff = true;
 	if((0xF0 & command.data[0]) == 128 || command.data[2] == 0) {
