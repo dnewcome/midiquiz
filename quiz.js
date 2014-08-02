@@ -139,6 +139,12 @@ function handleMidiMessage(note) {
 	else {
 		displayChord('');
 	}
+	if (
+		numberToNote(printNotes()[chord.inversion]).note+chord.chord == 
+		quiz.current
+	) {
+		quiz.next();
+	}
 	// var key = document.getElementById(numberToNote(note.data[1]).note);
 	var key = document.querySelector(
 		'#octave' + numberToNote(note.data[1]).octave + ' #' +
