@@ -24,6 +24,7 @@
 		</style>
 		<script src="search.js"></script>
 		<script src="quiz.js"></script>
+		<script src="chord-quiz.js"></script>
 	</head>
 	<body onload="init();">
 		<h1>Midi Quiz</h1>
@@ -34,13 +35,24 @@
 		<label for="selTest">Select an test:</label>
 		<select id="selTest">
 			<option value="-1">none selected</option>
-			<option value="0">C maj/A min</option>
-			<option value="0">D maj/B min</option>
+			<option value="0">C major / A minor</option>
+			<option value="1">C#(Db) major / A#(Bb) minor</option>
+			<option value="2">D major / B minor</option>
+			<option value-"3">D# (Eb) major / B# (C) minor</option>
+			<option value="4">E major / C#(Db) minor</option>
+			<option value="5">F major / D minor</option>
+			<option value="6">F#(Gb) major /  D#(Eb) minor</option>
+			<option value="7">G major / E Minor</option>
+			<option value="8">Ab (G#)  major / F minor</option>
+			<option value="9">A major / F#(Gb)  minor</option>
+			<option value="10">Bb (A#) major / G minor</option>
+			<option value="11">B major  / G#(Ab) minor</option>
 		</select>
 		<span id="notes-played"></span>
 		<h2 id="chord-played"></h2>
 		<span>Play this chord: </span>
 		<h2 id="chord-question"></h2>
+		<button onclick="quiz.next();">Next</button>
 		<br>
 		<div id="octave4">
 			<div id="C" class="key">

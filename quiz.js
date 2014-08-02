@@ -7,7 +7,11 @@ var inputs,
 	debug = false,
 
 	/* enable etailed logging */
-	trace = false;
+	trace = false,
+	
+	/* current quiz */
+	quiz;
+
 
 /**
  * initialize app - detect MIDI devices and attach event handlers
@@ -30,6 +34,13 @@ function init() {
 		});
 
 		inputs[parseInt(this.value, 10)].onmidimessage = handleMidiMessage; 
+	}
+
+	document.getElementById('selTest').onchange = function(e) {
+		console.log('selected ' + this.value);
+		var dom = document.getElementById('chord-question');
+		quiz = new Quiz(this.value, dom);
+		quiz.next();
 	}
 }
 
