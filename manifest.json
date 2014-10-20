@@ -1,0 +1,13 @@
+{
+  "name": "Chord Quiz",
+  "description": "Learn piano chords and test your knowledge",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": {
+    "16": "chordquiz16.png", "48": "chordquiz48.png", "128": "chordquiz128.png" }
+}
