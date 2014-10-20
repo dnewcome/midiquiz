@@ -117,6 +117,9 @@ function handleMidiMessage(note) {
 	if(note.data[0] == 254) {
 		return;
 	}
+	if( !( (0xF0 & note.data[0]) == 128 || (0xF0 & note.data[0]) == 144) ) {
+		return;
+	}
 
 	if (trace) {
 		console.log(note.data);
@@ -167,6 +170,7 @@ function convertCommand(command) {
 	if((0xF0 & command.data[0]) == 128 || command.data[2] == 0) {
 		onoff = false;
 	}
+	console.log('>>>>>>>>>>' + onoff);
 	return {
 		noteName: numberToNote(command.data[1]).note,
 		octave: numberToNote(command.data[1]).octave,
