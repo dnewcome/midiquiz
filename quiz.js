@@ -18,7 +18,8 @@ var inputs,
  */
 function init() {
 	navigator.requestMIDIAccess().then(function(res){
-		inputs = res.inputs();
+		inputs = res.inputs;
+		console.log(inputs);
 		addDevices();
 
 		// auto connect for convenience
